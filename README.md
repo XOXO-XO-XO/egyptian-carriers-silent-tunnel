@@ -217,9 +217,9 @@ done
 ```
 
 ```
-ru-ssh.ipracevpn.com  → 103.113.68.57   (Moscow, UFO Hosting LLC, AS33993)
-tr-ssh.ipracevpn.com  → 94.131.123.223  (Istanbul, WorkTitans B.V., AS209847)
-ua-ssh.ipracevpn.com  → 45.87.155.13    (Kyiv, WorkTitans B.V.)
+| ru-ssh.ipracevpn.com | 103.113.68.57 | Moscow, Russia | UFO Hosting AS33993 | SSH, V2Ray |
+| tr-ssh.ipracevpn.com | 94.131.123.223 | Istanbul, Turkey | UFO Hosting AS33993 | SSH, V2Ray |
+| ua-ssh.ipracevpn.com | 45.87.155.13 | Kyiv, Ukraine | WorkTitans AS209847 | SSH, V2Ray |
 sg-hysteria           → 170.187.196.27  (Singapore, Linode/Akamai)
 us-hysteria           → 104.200.17.237  (Texas, Linode/Akamai)
 de-hysteria           → 143.42.49.39    (Frankfurt, Linode/Akamai)
@@ -252,6 +252,19 @@ DigitalOcean           — IKEv2 servers
 ```
 
 Five different providers across multiple jurisdictions. Single-provider hosting would create a single point of failure and a single abuse contact. Deliberate diversification indicates operational security awareness.
+
+### Additional finding — Server Management Panel
+
+A reverse IP lookup on `94.131.123.223` (WorkTitans B.V., Turkey) revealed a co-hosted domain:
+```
+kynastore.my.id         → 94.131.123.223
+pterodactyl.kynastore.my.id → 94.131.123.223
+n.pterodactyl.kynastore.my.id → 94.131.123.223
+```
+
+`pterodactyl.kynastore.my.id` is a Pterodactyl server management panel — an open-source tool commonly used to manage fleets of VPS nodes. Its presence on the same IP as a core ipracevpn.com relay indicates centralized fleet management. `kynastore.my.id` was registered 2025-08-14 via Domainesia (Indonesian registrar).
+
+Confidence: MEDIUM — co-hosting confirmed, operational role inferred.
 
 ---
 
@@ -337,7 +350,7 @@ Every domain sharing the Moscow SSH server is a Chinese business operating in Ru
 | 48+ servers across 20+ countries | hostsearch enumeration |
 | 105 domains across 3-year history | crt.sh certificate transparency |
 | Chinese-origin tooling (Hysteria, TrojanGo) | Certificate timeline, Sep 2023 deployment |
-| Chinese domain on shared infrastructure | fanxingjiaoyu.com reverse IP |
+| Chinese domain on shared infrastructure (MEDIUM — shared hosting unconfirmed) | fanxingjiaoyu.com reverse IP |
 | Russian server hosting Chinese businesses | Moscow IP reverse lookup |
 | Moldovan bulletproof hosting | BGP/ASN analysis |
 | Deliberate provider diversification | 5 different hosting providers |
@@ -359,8 +372,8 @@ The free internet offering to Egyptian users is the user acquisition layer. The 
 |-----------|-----|----------|----------|----------|
 | it-ssh.ipracevpn.com | 57.131.38.151 | Milan, Italy | OVH AS16276 | SSH, V2Ray |
 | ru-ssh.ipracevpn.com | 103.113.68.57 | Moscow, Russia | UFO Hosting AS33993 | SSH, V2Ray |
-| tr-ssh.ipracevpn.com | 94.131.123.223 | Istanbul, Turkey | WorkTitans AS209847 | SSH, V2Ray |
-| ua-ssh.ipracevpn.com | 45.87.155.13 | Kyiv, Ukraine | WorkTitans | SSH, V2Ray |
+| tr-ssh.ipracevpn.com | 94.131.123.223 | Istanbul, Turkey | UFO Hosting AS33993 | SSH, V2Ray |
+| ua-ssh.ipracevpn.com | 45.87.155.13 | Kyiv, Ukraine | WorkTitans AS209847 | SSH, V2Ray |
 | sg-hysteria.ipracevpn.com | 170.187.196.27 | Singapore | Linode/Akamai | Hysteria |
 | us-hysteria.ipracevpn.com | 104.200.17.237 | Texas, USA | Linode/Akamai | Hysteria |
 | de-hysteria.ipracevpn.com | 143.42.49.39 | Frankfurt, Germany | Linode/Akamai | Hysteria |
